@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+message ServerLogInNotification
+  { 
+     uint32 typeNotification=1;
+     string userLogin=2;
+     string userPass=3;
+     uint32 sesionId=4;
+     uint32 userId=5;
+     
+     enum Response
+	 {
+     AUTHORIZATION_IS_SUCCESFUL=0;
+	   AUTHORIZATION_FAILD=1;
+	   USER_NOT_FOUND=2;
+	 }
+    optional Response respose =6;
+  }

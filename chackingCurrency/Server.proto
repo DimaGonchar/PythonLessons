@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package server;
+
+message ServerLogInNotification
+  { 
+     optional uint32 typeNotification=1;
+     optional string userLogin=2;
+     optional string userPass=3;
+     optional uint32 sesionId=4;
+     optional uint32 userId=5;
+
+	 enum Response
+	 {
+     AUTHORIZATION_IS_SUCCESFUL=0;
+	  AUTHORIZATION_FAILD=1;
+	  USER_NOT_FOUND=2;
+	 }
+	  optional Response respose =6;
+  }
+
+ message ServerRegistrationNotification
+   {
+      optional uint32 typeNotification=1;
+      optional uint32 userId=2;
+		optional uint32 sesionId=3;
+
+		  enum Response
+		  {
+		   REGISTRATION_IS_SUCCESFUL=0;
+		   USER_EXISTS=1;
+		  }
+		  optional Response response =4;
+   }
+
+   message ServerMessageNotification
+   {
+      optional uint32 typeNotification=1;
+      optional string userName=2;
+      optional uint32 senderId=3;
+      optional string text=4;
+   }
+
+   message NewUserConnectNotification
+   {    
+      optional uint32 typeNotification=1;
+		optional string userName=2;
+		optional  uint32 id=3;
+		  //uint64 socketDescripor=4;
+   }
+
+
+
+
+
+
+
