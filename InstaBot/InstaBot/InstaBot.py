@@ -10,14 +10,24 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common import exceptions
 from instagramLogIn import instagramLogInData
 from facebookLogIn import facebookLogInData
+import platform
 
 options=Options()
 options.add_argument("--disable-infobars")
 options.add_argument("start-maximized")
 options.add_argument("--disable-extensions")
-pathToChromeDriver=os.getcwd()+"\\Drivers\\Chrome\\chromedriver.exe"
+
+pathToChromeDriver=""
+
+if platform.system() == "Windows":
+    pathToChromeDriver=os.getcwd()+"\\Drivers\\Chrome\\chromedriver.exe"
+
+if platform.system()=="Linux":
+    pathToChromeDriver=os.getcwd()+"/Drivers/Chrome/chromedriver"
 
 driver=webdriver.Chrome(chrome_options=options, executable_path= pathToChromeDriver)
+
+    
 driver.get("https://instagram.com")
 
 try:
@@ -48,14 +58,12 @@ except exceptions.ImeNotAvailableException as exeption:
     facebookLogInButton=driver.find_element_by_xpath("/html/body/div[1]/div[3]/div[1]/div/div/div[2]/div[1]/form/div/div[3]/button")
     facebookLogInButton.click()
 
-try:
-    notNowButton=driver.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div/div/button")
-    notNowButton.click()
+notNowButton=driver.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div/div/button")
+notNowButton.click()
 
-except exceptions.NoSuchElementException as exption:
-    driver.implicitly_wait(10)
-    turnOffNotificationButton=driver.find_element_by_xpath("/html/body/div[5]/div/div/div/div[3]/button[2]")
-    turnOffNotificationButton.click()
+driver.implicitly_wait(20)
+turnOffNotificationButton=driver.find_element_by_xpath("/html/body/div[5]/div/div/div/div[3]/button[2]")
+turnOffNotificationButton.click()
 
 searchByTag=driver.find_element_by_xpath("/html/body/div[1]/section/nav/div[2]/div/div/div[2]/input")
 
